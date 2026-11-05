@@ -1,0 +1,180 @@
+@import "tailwindcss";
+
+:root {
+  --rbm-navy: #041a66;
+  --rbm-navy-deep: #020f42;
+  /*
+   * --rbm-orange is the logo orange deepened so text and buttons pass WCAG AA
+   * on white (4.7:1). Use --rbm-orange-bright, the exact logo colour, only on
+   * navy or dark photography.
+   */
+  --rbm-orange: #d43d1a;
+  --rbm-orange-dark: #b03012;
+  --rbm-orange-bright: #f8542f;
+  --rbm-white: #ffffff;
+  --rbm-surface: #f4f5f8;
+  --rbm-text-primary: #111a2e;
+  --rbm-text-secondary: #5a6478;
+  --rbm-border: #e2e5ec;
+  --background: #ffffff;
+  --foreground: var(--rbm-text-primary);
+  --rbm-shadow-soft: 0 1px 2px rgb(4 26 102 / 5%);
+  --rbm-radius: 0.125rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-rbm-navy: var(--rbm-navy);
+  --color-rbm-navy-deep: var(--rbm-navy-deep);
+  --color-rbm-orange: var(--rbm-orange);
+  --color-rbm-orange-dark: var(--rbm-orange-dark);
+  --color-rbm-orange-bright: var(--rbm-orange-bright);
+  --color-rbm-surface: var(--rbm-surface);
+  --color-rbm-text-primary: var(--rbm-text-primary);
+  --color-rbm-text-secondary: var(--rbm-text-secondary);
+  --color-rbm-border: var(--rbm-border);
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-archivo);
+  --shadow-rbm-soft: var(--rbm-shadow-soft);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  line-height: 1.6;
+}
+
+/* Keeps anchor targets clear of the sticky header */
+[id] {
+  scroll-margin-top: 6rem;
+}
+
+:focus-visible {
+  outline: 2px solid var(--rbm-orange);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* In a layer so Tailwind utilities can override these (for example pl-9, w-auto). */
+@layer components {
+  /* Typography */
+  .rbm-prose {
+    color: var(--rbm-text-secondary);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .rbm-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-archivo), system-ui, sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--rbm-orange);
+  }
+
+  .rbm-eyebrow::before {
+    content: "";
+    width: 2rem;
+    height: 2px;
+    flex-shrink: 0;
+    background: currentColor;
+  }
+
+  .rbm-eyebrow-light {
+    color: var(--rbm-orange-bright);
+  }
+
+  /* Links */
+  .rbm-link {
+    color: var(--rbm-navy);
+    font-weight: 600;
+    text-underline-offset: 3px;
+    transition: color 0.15s ease;
+  }
+
+  .rbm-link:hover {
+    color: var(--rbm-orange);
+  }
+
+  /* Form controls */
+  .rbm-label {
+    display: block;
+    margin-bottom: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--rbm-text-primary);
+  }
+
+  .rbm-input,
+  .rbm-textarea,
+  .rbm-select {
+    width: 100%;
+    border: 1px solid #c9ced9;
+    border-radius: var(--rbm-radius);
+    background: var(--rbm-white);
+    padding: 0.6875rem 0.875rem;
+    font-size: 0.9375rem;
+    color: var(--rbm-text-primary);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .rbm-input:focus,
+  .rbm-textarea:focus,
+  .rbm-select:focus {
+    outline: none;
+    border-color: var(--rbm-navy);
+    box-shadow: 0 0 0 3px rgb(4 26 102 / 12%);
+  }
+
+  .rbm-input[aria-invalid="true"],
+  .rbm-textarea[aria-invalid="true"] {
+    border-color: var(--rbm-orange);
+  }
+
+  .rbm-textarea {
+    min-height: 7rem;
+    resize: vertical;
+  }
+
+  .rbm-field-hint {
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
+    color: var(--rbm-text-secondary);
+  }
+
+  .rbm-field-error {
+    margin-top: 0.25rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--rbm-orange-dark);
+  }
+
+  .rbm-card {
+    border: 1px solid var(--rbm-border);
+    border-radius: var(--rbm-radius);
+    background: var(--rbm-white);
+    box-shadow: var(--rbm-shadow-soft);
+  }
+}
